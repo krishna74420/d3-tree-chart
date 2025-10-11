@@ -1,23 +1,17 @@
-<div class="decommission-shell">
-  <mat-toolbar class="topbar">
-    <div class="title">AIT Decommission</div>
-    <div class="spacer"></div>
-    <button mat-icon-button aria-label="info" (click)="openInfo()">
-      <mat-icon>info</mat-icon>
-    </button>
-  </mat-toolbar>
+<div class="decommission-container">
+  <div class="header">
+    <h2>Step {{ currentStep + 1 }} of {{ totalSteps }} – {{ steps[currentStep]?.label }}</h2>
+    <button mat-icon-button (click)="openInfo()" class="info-btn">ℹ️</button>
+  </div>
 
-  <ng-container *ngIf="steps.length">
-    <mat-vertical-stepper linear>
-      <mat-step *ngFor="let step of steps; let i = index" [label]="'Step ' + (i+1) + ' of ' + steps.length + ' - ' + step.label">
-        <form [formGroup]="form">
-          <formly-form [form]="form" [fields]="step.fields" [model]="" (modelChange)="onModelChange($event)"></formly-form>
-        </form>
-        <div class="actions">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
-        </div>
-      </mat-step>
-    </mat-vertical-stepper>
-  </ng-container>
+  <p>Please fill in all required fields</p>
+
+  <form [formGroup]="form">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </form>
+
+  <div class="actions">
+    <button mat-button color="primary" (click)="back()" [disabled]="currentStep === 0">Back</button>
+    <button mat-raised-button color="accent" (click)="next()" *ngIf="currentStep < totalSteps - 1">Next</button>
+  </div>
 </div>

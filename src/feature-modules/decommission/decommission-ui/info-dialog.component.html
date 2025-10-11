@@ -1,0 +1,6 @@
+<h2>Decommission Information</h2>
+<ul>
+  <li *ngFor="let link of links">
+    <a [href]="link.url" target="_blank">{{ link.label }}</a>
+  </li>
+</ul>

@@ -1,22 +1,18 @@
 {
   "title": "Decommission Help Center",
-  "description": "This contains links and guidance for decommission tasks. Use the links below to view step-by-step docs.",
+  "description": "Guidelines for each component in the decommission process.",
   "links": [
     {
-      "label": "AIT Number Guidelines",
-      "url": "https://confluence.company.com/ait-info"
+      "label": "Middleware Removal",
+      "url": "https://confluence.company.com/middleware"
     },
     {
-      "label": "CRQ Process Overview",
-      "url": "https://confluence.company.com/crq-guide"
+      "label": "Database Removal",
+      "url": "https://confluence.company.com/database"
     },
     {
-      "label": "Database Removal Steps",
-      "url": "https://confluence.company.com/db-removal"
-    },
-    {
-      "label": "Backup & Archiving",
-      "url": "https://confluence.company.com/backup-archiving"
+      "label": "Load Balancer Removal",
+      "url": "https://confluence.company.com/loadbalancer"
     }
   ]
 }
