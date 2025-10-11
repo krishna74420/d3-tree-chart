@@ -1,0 +1,208 @@
+{
+  "steps": [
+    {
+      "label": "Group Information",
+      "fields": [
+        {
+          "key": "aitNumber",
+          "type": "input",
+          "templateOptions": {
+            "label": "AIT Number",
+            "required": true
+          }
+        },
+        {
+          "key": "crqGroup",
+          "type": "input",
+          "templateOptions": {
+            "label": "CRQ Group",
+            "required": true
+          }
+        },
+        {
+          "key": "requestorInfo",
+          "type": "input",
+          "templateOptions": {
+            "label": "Requestor",
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Middleware",
+      "fields": [
+        {
+          "key": "middleware",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Middleware Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "External Storage",
+      "fields": [
+        {
+          "key": "externalStorage",
+          "type": "radio",
+          "templateOptions": {
+            "label": "External Storage",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Remove Database",
+      "fields": [
+        {
+          "key": "removeDatabase",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Database Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Remove Messaging",
+      "fields": [
+        {
+          "key": "removeMessaging",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Messaging Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Remove Backup",
+      "fields": [
+        {
+          "key": "removeBackup",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Backup Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Data Archiving",
+      "fields": [
+        {
+          "key": "dataArchiving",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Data Archiving",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "Confirmation",
+      "fields": [
+        {
+          "key": "confirmNote",
+          "type": "textarea",
+          "templateOptions": {
+            "label": "Any notes before submit",
+            "required": false
+          }
+        }
+      ]
+    }
+  ]
+}

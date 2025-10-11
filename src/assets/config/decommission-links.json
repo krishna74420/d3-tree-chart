@@ -1,0 +1,22 @@
+{
+  "title": "Decommission Help Center",
+  "description": "This contains links and guidance for decommission tasks. Use the links below to view step-by-step docs.",
+  "links": [
+    {
+      "label": "AIT Number Guidelines",
+      "url": "https://confluence.company.com/ait-info"
+    },
+    {
+      "label": "CRQ Process Overview",
+      "url": "https://confluence.company.com/crq-guide"
+    },
+    {
+      "label": "Database Removal Steps",
+      "url": "https://confluence.company.com/db-removal"
+    },
+    {
+      "label": "Backup & Archiving",
+      "url": "https://confluence.company.com/backup-archiving"
+    }
+  ]
+}
