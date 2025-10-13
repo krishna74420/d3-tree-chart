@@ -1,6 +1,7 @@
-<h2>Decommission Information</h2>
+
+<h2>{{ data.title }}</h2>
+<p>{{ data.description }}</p>
 <ul>
-  <li *ngFor="let link of links">
-    <a [href]="link.url" target="_blank">{{ link.label }}</a>
-  </li>
+  <li *ngFor="let l of data.links"><a [href]="l.url" target="_blank">{{ l.label }}</a></li>
 </ul>
+<button mat-button mat-dialog-close>Close</button>

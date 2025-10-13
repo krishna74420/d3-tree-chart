@@ -1,84 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { MatDialog } from '@angular/material/dialog';
-import { InfoDialogComponent } from './info-dialog.component';
-import { DecommissionService } from '../service/decommission.service';
+
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-decommission-ui',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormlyModule, FormlyMaterialModule, MatButtonModule, MatIconModule, MatDialogModule, MatToolbarModule],
   templateUrl: './decommission-ui.component.html',
   styleUrls: ['./decommission-ui.component.scss']
 })
-export class DecommissionUiComponent implements OnInit {
-  form = new FormGroup({});
-  model: any = {};
-  fields: FormlyFieldConfig[] = [];
-  steps: any[] = [];
-  currentStep = 0;
-  totalSteps = 0;
+export class DecommissionUiComponent {
+  @Input() steps: any[] = [];
+  @Input() currentStep = 0;
+  @Input() totalSteps = 0;
+  @Input() fields: any[] = [];
+  @Input() model: any = {};
 
-  constructor(private dialog: MatDialog, private service: DecommissionService) {}
+  @Output() modelChange = new EventEmitter<any>();
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() prevStep = new EventEmitter<void>();
+  @Output() openInfo = new EventEmitter<void>();
 
-  ngOnInit() {
-    this.service.loadSteps().subscribe(data => {
-      this.steps = data.steps;
-      this.totalSteps = this.steps.length;
-      this.buildForm(this.currentStep);
-    });
-  }
-
-  buildForm(index: number) {
+  stepState(index: number): 'completed' | 'current' | 'pending' {
+    if (index === this.currentStep) return 'current';
     const step = this.steps[index];
-    if (!step) return;
-
-    switch (step.type) {
-      case 'input':
-        this.fields = [{ key: step.label, type: 'input', templateOptions: { label: step.question, required: true } }];
-        break;
-      case 'radio':
-        this.fields = [{
-          key: step.label,
-          type: 'radio',
-          templateOptions: {
-            label: step.question,
-            required: true,
-            options: [
-              { value: 'Yes', label: 'Yes' },
-              { value: 'No', label: 'No' },
-              { value: 'NA', label: 'N/A' }
-            ]
-          }
-        }];
-        break;
-      case 'checkbox':
-        this.fields = [{
-          key: step.label,
-          type: 'checkbox',
-          templateOptions: { label: step.question }
-        }];
-        break;
-      case 'static':
-        this.fields = [{
-          template: '<div class="instructions">Did you hear that? They’ve shut down the main reactor... (final instructions)</div>'
-        }];
-        break;
+    if (!step) return 'pending';
+    const keys = (step.fields || []).map((f: any) => f.key);
+    for (const k of keys) {
+      if (this.model && this.model[k] !== undefined && this.model[k] !== null && this.model[k] !== '') return 'completed';
     }
+    return 'pending';
   }
 
-  openInfo() { this.dialog.open(InfoDialogComponent); }
-
-  next() {
-    if (this.currentStep < this.totalSteps - 1) {
-      this.currentStep++;
-      this.buildForm(this.currentStep);
-    }
-  }
-
-  back() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-      this.buildForm(this.currentStep);
-    }
+  bubbleClass(index: number) {
+    const s = this.stepState(index);
+    return {
+      'bubble-completed': s === 'completed',
+      'bubble-current': s === 'current',
+      'bubble-pending': s === 'pending'
+    };
   }
 }

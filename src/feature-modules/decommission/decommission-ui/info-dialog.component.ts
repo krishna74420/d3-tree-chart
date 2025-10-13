@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
+
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-info-dialog',
-  templateUrl: './info-dialog.component.html',
-  styleUrls: ['./info-dialog.component.scss']
+  templateUrl: './info-dialog.component.html'
 })
 export class InfoDialogComponent {
-  links = [
-    { label: 'Middleware Removal', url: 'https://confluence.company.com/middleware' },
-    { label: 'Database Removal', url: 'https://confluence.company.com/database' },
-    { label: 'Load Balancer Removal', url: 'https://confluence.company.com/loadbalancer' }
-  ];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

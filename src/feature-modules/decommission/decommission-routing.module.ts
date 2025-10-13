@@ -1,8 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { DecommissionUiComponent } from './decommission-ui/decommission-ui.component';
 
-const routes: Routes = [{ path: '', component: DecommissionUiComponent }];
+import { Routes } from '@angular/router';
 
-@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })
-export class DecommissionRoutingModule { }
+export const decommissionRoutes: Routes = [
+  { path: '', loadComponent: () => import('./decommission.component').then(m => m.DecommissionComponent) }
+];

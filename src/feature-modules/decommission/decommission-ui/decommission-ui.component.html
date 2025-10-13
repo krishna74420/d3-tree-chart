@@ -1,17 +1,31 @@
-<div class="decommission-container">
-  <div class="header">
-    <h2>Step {{ currentStep + 1 }} of {{ totalSteps }} – {{ steps[currentStep]?.label }}</h2>
-    <button mat-icon-button (click)="openInfo()" class="info-btn">ℹ️</button>
-  </div>
 
-  <p>Please fill in all required fields</p>
+<div class="decommission-grid">
+  <aside class="left-steps" role="navigation" aria-label="Decommission steps">
+    <ul>
+      <li *ngFor="let step of steps; let i = index" (click)="prevStep.emit(); currentStep = i" [class.active]="i === currentStep">
+        <div class="step-item">
+          <div class="bubble" [ngClass]="bubbleClass(i)">{{ i+1 }}</div>
+          <div class="step-label">{{ step.label }}</div>
+        </div>
+      </li>
+    </ul>
+  </aside>
 
-  <form [formGroup]="form">
-    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-  </form>
+  <main class="form-area">
+    <mat-toolbar class="toolbar">
+      <div class="title">{{ steps[currentStep]?.label }}</div>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="openInfo.emit()"><mat-icon>info</mat-icon></button>
+    </mat-toolbar>
 
-  <div class="actions">
-    <button mat-button color="primary" (click)="back()" [disabled]="currentStep === 0">Back</button>
-    <button mat-raised-button color="accent" (click)="next()" *ngIf="currentStep < totalSteps - 1">Next</button>
-  </div>
+    <h3>{{ steps[currentStep]?.label }}</h3>
+    <p class="subtitle">Please fill in all required fields <span class="text-end">Step {{ currentStep + 1 }} of {{ totalSteps }}</span></p>
+
+    <formly-form [fields]="fields" [model]="model" (modelChange)="modelChange.emit($event)"></formly-form>
+
+    <div class="actions">
+      <button mat-button (click)="prevStep.emit()">Back</button>
+      <button mat-raised-button color="primary" (click)="nextStep.emit()">Next</button>
+    </div>
+  </main>
 </div>

@@ -1,0 +1,12 @@
+
+<app-decommission-ui
+  [steps]="steps"
+  [currentStep]="currentStep"
+  [totalSteps]="totalSteps"
+  [fields]="fields"
+  [model]="model"
+  (modelChange)="onModelChange($event)"
+  (nextStep)="next()"
+  (prevStep)="prev()"
+  (openInfo)="openInfo()"
+></app-decommission-ui>

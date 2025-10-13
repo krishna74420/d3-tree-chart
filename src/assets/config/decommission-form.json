@@ -2,48 +2,231 @@
   "steps": [
     {
       "label": "Group Information",
-      "question": "Enter AIT details",
-      "type": "input"
+      "fields": [
+        {
+          "key": "aitNumber",
+          "type": "input",
+          "templateOptions": {
+            "label": "AIT Number",
+            "required": true
+          }
+        },
+        {
+          "key": "crqGroup",
+          "type": "input",
+          "templateOptions": {
+            "label": "CRQ Group",
+            "required": true
+          }
+        },
+        {
+          "key": "requestorInfo",
+          "type": "input",
+          "templateOptions": {
+            "label": "Requestor",
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "Middleware",
-      "question": "Has middleware been removed?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "middleware",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Middleware Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "External Storage",
-      "question": "Has external storage been cleaned up?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "externalStorage",
+          "type": "radio",
+          "templateOptions": {
+            "label": "External Storage",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "Remove Database",
-      "question": "Has database been deleted?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "removeDatabase",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Database Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "Remove Messaging",
-      "question": "Has messaging been disabled?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "removeMessaging",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Messaging Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "Remove Backup",
-      "question": "Has backup been removed?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "removeBackup",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Backup Removal",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          }
+        }
+      ]
     },
     {
       "label": "Remove Load Balancers",
-      "question": "Have the load balancers been disabled within the cloud portal?",
-      "type": "radio"
+      "fields": [
+        {
+          "key": "removeLoadBalancers",
+          "type": "radio",
+          "templateOptions": {
+            "label": "Have the load balancers been disabled within the cloud portal?",
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              },
+              {
+                "label": "N/A",
+                "value": "NA"
+              }
+            ],
+            "required": true
+          },
+          "template": "<small class='note'>Ensure that any listeners and DNS records are removed.</small>"
+        }
+      ]
     },
     {
       "label": "Confirmation \u2013 Responsibility",
-      "question": "Do you accept responsibility for this decommission?",
-      "type": "checkbox"
+      "fields": [
+        {
+          "key": "confirmAccept",
+          "type": "radio",
+          "templateOptions": {
+            "options": [
+              {
+                "label": "Yes, I accept Responsibility",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              }
+            ],
+            "required": true
+          },
+          "template": "<p>Attestation: Submitter has double checked all data. <br>This server is no longer in use, all Middleware, Messaging, Database, and Backups are<br>removed as appropriate. I attest this server may be shut down immediately with no<br>impact to Users or the Bank. Any impacts caused by this decommission are the sole<br>responsibility of the Requestor.<br>Proceed to Cutover Automations via Runbooks. Generate CRQ, wait for approval, then<br>execute shutdown scripts etc.<br><br>This step should include runbooks for all current Decom tasks, Shutdown, cleansing from SORs, etc.<br></p>"
+        }
+      ]
     },
     {
       "label": "Confirmation \u2013 Final Instructions",
-      "question": "Please review the final instructions.",
-      "type": "static"
+      "fields": [
+        {
+          "key": "finalNote",
+          "type": "textarea",
+          "templateOptions": {
+            "label": "Final Instructions",
+            "description": "Read the instructions carefully before submitting. This will decommission the server and related resources."
+          }
+        }
+      ]
     }
   ]
 }

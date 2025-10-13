@@ -1,9 +1,10 @@
+
 import { createAction, props } from '@ngrx/store';
 import { DecommissionModel } from '../../interface/decommission.model';
 
 export const loadDraft = createAction('[Decommission] Load Draft', props<{ draft: DecommissionModel }>());
 
-export const saveProgress = createAction('[Decommission] Save Progress', props<{ model: DecommissionModel }>());
+export const saveProgress = createAction('[Decommission] Save Progress', props<{ model: Partial<DecommissionModel> }>());
 
 export const nextStep = createAction('[Decommission] Next Step');
 export const prevStep = createAction('[Decommission] Prev Step');

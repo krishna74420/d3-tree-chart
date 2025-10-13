@@ -1,3 +1,4 @@
+
 export interface DecommissionModel {
   aitNumber?: string;
   crqGroup?: string;
@@ -7,5 +8,7 @@ export interface DecommissionModel {
   removeDatabase?: 'Yes'|'No'|'NA'|null;
   removeMessaging?: 'Yes'|'No'|'NA'|null;
   removeBackup?: 'Yes'|'No'|'NA'|null;
-  dataArchiving?: 'Yes'|'No'|'NA'|null;
+  removeLoadBalancers?: 'Yes'|'No'|'NA'|null;
+  confirmAccept?: 'Yes'|'No';
+  finalNote?: string;
 }
