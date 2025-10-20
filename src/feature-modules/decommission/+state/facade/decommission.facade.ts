@@ -43,3 +43,4 @@ export class DecommissionFacade {
   submit = (model: any) => this.store.dispatch(Actions.submitDecommission({ model }));
   submitSuccess = () => this.store.dispatch(Actions.submitDecommissionSuccess());
   submitFailure = (err: any) => this.store.dispatch(Actions.submitDecommissionFailure({ error: err }));
+}

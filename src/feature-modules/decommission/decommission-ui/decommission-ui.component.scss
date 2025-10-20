@@ -1,24 +1,23 @@
-
-.decommission-grid { display:flex; gap:20px; }
+.decommission-shell { font-family: Roboto, "Helvetica Neue", Arial, sans-serif; }
+.header { background:#eee; padding:10px 16px; border:1px solid #ddd; font-weight:600; color:#444; }
+.decommission-grid { display:flex; gap:16px; padding:16px; }
 .left-steps { width:260px; }
-.left-steps ul { list-style:none; padding:0; margin:0; }
-.left-steps li { padding:8px; cursor:pointer; display:flex; align-items:center; }
-.step-item { display:flex; gap:12px; align-items:center; }
-.bubble { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
-.bubble-completed { background:#1e7e34; color:white; } /* green */
-.bubble-current { background:#6c757d; color:white; } /* grey */
-.bubble-pending { background:#c82333; color:white; } /* red */
-.form-area { flex:1; background:#fff; padding:16px; border-radius:6px; }
-.toolbar { display:flex; }
-.title { font-weight:700; }
-.subtitle { color:#666; display:flex; justify-content:space-between; }
-.text-end { margin-left:auto; }
-.actions { margin-top:20px; display:flex; gap:12px; justify-content:flex-end; }
-
-@media (max-width: 767px) {
-  .decommission-grid { flex-direction:column; }
-  .left-steps { width:100%; order:2; }
-  .form-area { order:1; }
-  .left-steps ul { display:flex; overflow-x:auto; gap:8px; }
-  .left-steps li { min-width:140px; flex:0 0 auto; }
-}
+.left-steps ul { list-style:none; margin:0; padding:0; border:1px solid #ddd; border-radius:6px; background:#fff; }
+.left-steps li { padding:18px; border-bottom:1px solid #eee; cursor:pointer; display:flex; align-items:center; }
+.left-steps li:last-child { border-bottom:none; }
+.left-steps li.active { background:#f0fff3; } /* subtle highlight for active */
+.step-item { display:flex; gap:12px; align-items:center; width:100%; }
+.dot { width:12px; height:12px; border-radius:50%; }
+.dot-completed { background:#1e7e34; } /* green - completed */
+.dot-current { background:#1e7e34; } /* green - selected like screenshot */
+.dot-pending { background:#c82333; } /* red - pending */
+.step-label { font-size:14px; color:#333; }
+.form-area { flex:1; }
+.form-card { background:#fff; border:1px solid #e6e6e6; border-radius:6px; padding:18px; min-height:420px; box-shadow: none; }
+.form-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.form-title { font-weight:700; }
+.step-count { color:#666; font-size:13px; }
+.subtitle { color:#666; margin-bottom:12px; }
+.actions { margin-top:20px; display:flex; justify-content:space-between; }
+.actions button { min-width:120px; }
+@media (max-width:767px){ .decommission-grid{flex-direction:column;} .left-steps{width:100%} .form-area{order:1} }

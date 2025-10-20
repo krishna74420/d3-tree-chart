@@ -11,13 +11,13 @@ import { DecommissionFacade } from './+state/facade/decommission.facade';
 
 @Component({
   selector: 'app-decommission',
-  templateUrl: './decommission.component.html',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, DecommissionUiComponent, MatDialogModule, MatIconModule],
+  templateUrl: './decommission.component.html',
+  styleUrls: ['./decommission.component.scss']
 })
 export class DecommissionComponent implements OnInit, OnDestroy {
   loading: boolean = true;
-  modalSize = 'md';
   type: string = '';
   showMessage: any;
   steps: any[] = [];
@@ -40,7 +40,7 @@ export class DecommissionComponent implements OnInit, OnDestroy {
     this.decommissionFacade.setError(false, '');
     this.decommissionFacade.setLoading(false);
     this.decommissionFacade.setHeaderPath('AIT Decommission');
-    this.decommissionFacade.loadConfig();
+    this.decommissionFacade.loadConfig(); // effect will load JSONs and save to store
     this.subscribe();
   }
 
@@ -84,8 +84,9 @@ export class DecommissionComponent implements OnInit, OnDestroy {
     this.fields = (step && step.fields) ? step.fields : [];
   }
 
-  onModelChange(m: any) {
-    this.decommissionFacade.updateFormData(m);
+  onModelChange(updated: any) {
+    // facade persists to the store
+    this.decommissionFacade.updateFormData(updated);
   }
 
   next() {
@@ -93,7 +94,7 @@ export class DecommissionComponent implements OnInit, OnDestroy {
     if (this.currentStep < this.totalSteps - 1) {
       this.decommissionFacade.setCurrentStep(this.currentStep + 1);
     } else {
-      // last step -> submit (simulated by effect)
+      // final submit — your effect simulates and shows success
       this.decommissionFacade.submit(this.model);
     }
   }
@@ -109,8 +110,12 @@ export class DecommissionComponent implements OnInit, OnDestroy {
   }
 
   openInfo() {
+    // open modal with links loaded in store
     this.decommissionFacade.links$.pipe(takeUntil(this.destroy$)).subscribe(data => {
-      this.modalRef = this.modalService.open(DialogComponent, { width: '520px', data: { title: data?.title, templateRef: null, links: data?.links, description: data?.description } });
+      this.modalRef = this.modalService.open(DialogComponent, {
+        width: '520px',
+        data: { title: data?.title, templateRef: null, links: data?.links, description: data?.description }
+      });
     });
   }
 

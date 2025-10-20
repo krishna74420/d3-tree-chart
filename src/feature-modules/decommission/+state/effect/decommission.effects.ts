@@ -4,7 +4,7 @@ import * as ActionsList from '../actions/decommission.actions';
 import { DecommissionService } from '../../service/decommission.service';
 import { DecommissionFacade } from '../facade/decommission.facade';
 import { switchMap, tap, delay, catchError } from 'rxjs/operators';
-import { forkJoin, of, EMPTY } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 
 @Injectable()
 export class DecommissionEffects {
@@ -21,7 +21,6 @@ export class DecommissionEffects {
             this.facade.setError(false, '');
             this.facade.setLoading(false);
           }),
-          switchMap(() => of(EMPTY)),
           catchError(err => {
             this.facade.setLoading(false);
             this.facade.setError(true, `${err?.message ?? err}`);
@@ -40,13 +39,12 @@ export class DecommissionEffects {
         this.facade.setLoading(true);
         // simulate saving in store (no HTTP) and return success
         return of(true).pipe(
-          delay(500),
+          delay(600),
           tap(() => {
             this.facade.setLoading(false);
             this.facade.submitSuccess();
             this.facade.setSuccess(true, 'Decommission submitted successfully');
-          }),
-          switchMap(() => of(EMPTY))
+          })
         );
       })
     ),

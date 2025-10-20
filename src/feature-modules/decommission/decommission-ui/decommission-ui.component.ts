@@ -1,5 +1,4 @@
-
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
@@ -16,35 +15,49 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './decommission-ui.component.html',
   styleUrls: ['./decommission-ui.component.scss']
 })
-export class DecommissionUiComponent {
+export class DecommissionUiComponent implements OnChanges {
+  @Input() loading: boolean = false;
   @Input() steps: any[] = [];
-  @Input() currentStep = 0;
-  @Input() totalSteps = 0;
+  @Input() currentStep: number = 0;
+  @Input() totalSteps: number = 0;
   @Input() fields: any[] = [];
   @Input() model: any = {};
+
+  // local mutable model for Formly to avoid "object not extensible" errors
+  localModel: any = {};
 
   @Output() modelChange = new EventEmitter<any>();
   @Output() nextStep = new EventEmitter<void>();
   @Output() prevStep = new EventEmitter<void>();
+  @Output() goToStep = new EventEmitter<number>();
   @Output() openInfo = new EventEmitter<void>();
 
-  stepState(index: number): 'completed' | 'current' | 'pending' {
-    if (index === this.currentStep) return 'current';
-    const step = this.steps[index];
-    if (!step) return 'pending';
-    const keys = (step.fields || []).map((f: any) => f.key);
-    for (const k of keys) {
-      if (this.model && this.model[k] !== undefined && this.model[k] !== null && this.model[k] !== '') return 'completed';
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['model']) {
+      // create a shallow clone so Formly can modify it
+      this.localModel = this.model ? JSON.parse(JSON.stringify(this.model)) : {};
     }
-    return 'pending';
+  }
+
+  stepCompleted(i:number){
+    const step=this.steps[i];
+    if(!step) return false;
+    const keys=(step.fields||[]).map((f:any)=>f.key);
+    for(const k of keys){ if(this.localModel && this.localModel[k]!==undefined && this.localModel[k]!==null && this.localModel[k]!=='') return true; }
+    return false;
   }
 
   bubbleClass(index: number) {
-    const s = this.stepState(index);
+    const s = this.stepCompleted(index) ? 'completed' : (index===this.currentStep ? 'current' : 'pending');
     return {
       'bubble-completed': s === 'completed',
       'bubble-current': s === 'current',
       'bubble-pending': s === 'pending'
     };
+  }
+
+  onModelChange(ev: any) {
+    // propagate changes up via event with the updated values
+    this.modelChange.emit(ev);
   }
 }

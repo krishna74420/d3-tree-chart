@@ -1,31 +1,34 @@
+<div class="decommission-shell">
+  <header class="header">Decommissioning AIT</header>
 
-<div class="decommission-grid">
-  <aside class="left-steps" role="navigation" aria-label="Decommission steps">
-    <ul>
-      <li *ngFor="let step of steps; let i = index" (click)="prevStep.emit(); currentStep = i" [class.active]="i === currentStep">
-        <div class="step-item">
-          <div class="bubble" [ngClass]="bubbleClass(i)">{{ i+1 }}</div>
-          <div class="step-label">{{ step.label }}</div>
+  <div class="decommission-grid">
+    <aside class="left-steps" role="navigation" aria-label="Decommission steps">
+      <ul>
+        <li *ngFor="let step of steps; let i = index" (click)="goToStep.emit(i)" [class.active]="i === currentStep">
+          <div class="step-item">
+            <div class="dot" [ngClass]="{'dot-completed': stepCompleted(i), 'dot-current': i===currentStep, 'dot-pending': !stepCompleted(i) && i!==currentStep}"></div>
+            <div class="step-label">{{ step.label }}</div>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="form-area">
+      <div class="form-card">
+        <div class="form-header">
+          <div class="form-title">{{ steps[currentStep]?.label }}</div>
+          <div class="step-count">Step {{ currentStep + 1 }} of {{ totalSteps }}</div>
         </div>
-      </li>
-    </ul>
-  </aside>
 
-  <main class="form-area">
-    <mat-toolbar class="toolbar">
-      <div class="title">{{ steps[currentStep]?.label }}</div>
-      <span class="spacer"></span>
-      <button mat-icon-button (click)="openInfo.emit()"><mat-icon>info</mat-icon></button>
-    </mat-toolbar>
+        <p class="subtitle">Please fill in all required fields</p>
 
-    <h3>{{ steps[currentStep]?.label }}</h3>
-    <p class="subtitle">Please fill in all required fields <span class="text-end">Step {{ currentStep + 1 }} of {{ totalSteps }}</span></p>
+        <formly-form [fields]="fields" [model]="localModel" (modelChange)="onModelChange($event)"></formly-form>
 
-    <formly-form [fields]="fields" [model]="model" (modelChange)="modelChange.emit($event)"></formly-form>
-
-    <div class="actions">
-      <button mat-button (click)="prevStep.emit()">Back</button>
-      <button mat-raised-button color="primary" (click)="nextStep.emit()">Next</button>
-    </div>
-  </main>
+        <div class="actions">
+          <button mat-button (click)="prevStep.emit()">Back</button>
+          <button mat-raised-button color="primary" (click)="nextStep.emit()">Next</button>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>

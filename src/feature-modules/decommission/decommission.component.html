@@ -1,5 +1,5 @@
-
 <app-decommission-ui
+  [loading]="loading"
   [steps]="steps"
   [currentStep]="currentStep"
   [totalSteps]="totalSteps"
@@ -8,5 +8,12 @@
   (modelChange)="onModelChange($event)"
   (nextStep)="next()"
   (prevStep)="prev()"
+  (goToStep)="goToStep($event)"
   (openInfo)="openInfo()"
 ></app-decommission-ui>
+
+<ng-template #mesgpopup>
+  <div class="modal-body">
+    <h3>{{ showMessage?.msg }}</h3>
+  </div>
+</ng-template>
